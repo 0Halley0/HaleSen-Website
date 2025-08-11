@@ -16,8 +16,8 @@ export default function TopNavBar({ toggleColorMode, mode }: TopNavBarProps) {
   return (
     <AppBar position="fixed">
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Demo Website
+        <Typography variant="h4" sx={{ flexGrow: 1 }}>
+          DEMO
         </Typography>
 
         <Button

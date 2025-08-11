@@ -7,7 +7,7 @@ import Timeline from "./components/pages/Timeline";
 import ContactForm from "./components/pages/ContactForm";
 
 function App() {
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<"light" | "dark">("dark");
 
   const theme = useMemo(() => getTheme(mode), [mode]);
 
