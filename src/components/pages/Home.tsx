@@ -14,7 +14,6 @@ import { useState, useEffect } from "react";
 import {
   GitHub,
   LinkedIn,
-  Email,
   Folder,
   KeyboardArrowDown,
 } from "@mui/icons-material";
@@ -124,7 +123,7 @@ export default function Home() {
   }));
 
   const SocialButton = styled(IconButton)(() => ({
-    marginTop: "6rem",
+    marginTop: "10rem",
     background: `linear-gradient(135deg, ${theme.palette.primary.main}10, ${theme.palette.secondary.main}10)`,
     border: `1px solid ${theme.palette.primary.main}30`,
     color: theme.palette.text.primary,
@@ -161,7 +160,7 @@ export default function Home() {
     <>
       I am a <strong>Software Engineer</strong> with experience in building
       innovative <strong>Web and Mobile applications</strong>. My expertise lies
-      in cutting-edge technologies such as{" "}
+      in technologies such as{" "}
       <strong>
         JavaScript, TypeScript, Vue, Angular, React, Flutter, MUI, and Tailwind
       </strong>

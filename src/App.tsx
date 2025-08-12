@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import { ThemeProvider, CssBaseline, Stack } from "@mui/material";
 import { getTheme } from "./theme"; // adjust path if needed
 import TopNavBar from "./components/navigations/TopNavBar";
 import Home from "./components/pages/Home";
@@ -20,9 +20,11 @@ function App() {
       <CssBaseline />
       <TopNavBar toggleColorMode={toggleColorMode} mode={mode} />
       <div style={{ paddingTop: 64, maxWidth: 900, margin: "auto" }}>
-        <Home />
-        <Timeline />
-        <ContactForm />
+        <Stack spacing={80}>
+          <Home />
+          <Timeline />
+          <ContactForm />
+        </Stack>
       </div>
     </ThemeProvider>
   );
