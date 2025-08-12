@@ -29,6 +29,148 @@ import Seperator from "../../assets/seperator2.png";
 import { GradientDivider } from "../shared/GradientDivider";
 import FloatingSquare from "../shared/FloatingSquare";
 
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  "& .MuiOutlinedInput-root": {
+    borderRadius: 12,
+    transition: "all 0.3s ease",
+    background: `${theme.palette.background.paper}80`,
+    "&:hover": {
+      transform: "translateY(-2px)",
+      boxShadow: `0 4px 12px ${theme.palette.primary.gradientStart}15`,
+    },
+    "&.Mui-focused": {
+      transform: "translateY(-2px)",
+      boxShadow: `0 8px 20px ${theme.palette.secondary.main}25`,
+      "& fieldset": {
+        borderColor: theme.palette.secondary.main,
+        borderWidth: 2,
+      },
+    },
+  },
+  "& label.Mui-focused": {
+    color: theme.palette.secondary.main,
+    fontWeight: 600,
+  },
+}));
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  background: `linear-gradient(135deg, ${theme.palette.background.paper}f5, ${theme.palette.background.default}e8)`,
+  backdropFilter: "blur(20px)",
+  border: `1px solid ${theme.palette.divider}30`,
+  borderRadius: 24,
+  position: "relative",
+  overflow: "hidden",
+  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: `linear-gradient(135deg, ${theme.palette.primary.gradientStart}05, ${theme.palette.secondary.main}05)`,
+    zIndex: 0,
+  },
+  "&:hover": {
+    transform: "translateY(-2px)",
+    boxShadow: `0 20px 60px ${theme.palette.primary.gradientStart}15`,
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: theme.spacing(3),
+    minWidth: "auto",
+    width: "100%",
+    boxSizing: "border-box",
+  },
+}));
+
+const ContactInfoCard = styled(Paper)(({ theme }) => ({
+  background: `linear-gradient(135deg, ${theme.palette.secondary.main}10, ${theme.palette.primary.gradientStart}08)`,
+  backdropFilter: "blur(10px)",
+  border: `1px solid ${theme.palette.divider}40`,
+  borderRadius: 16,
+  padding: theme.spacing(3),
+  textAlign: "center",
+  transition: "all 0.3s ease",
+  "&:hover": {
+    transform: "translateY(-4px)",
+    boxShadow: `0 12px 30px ${theme.palette.secondary.main}20`,
+  },
+}));
+
+const AnimatedButton = styled(Button)(({ theme }) => ({
+  background: `linear-gradient(45deg, ${theme.palette.primary.gradientStart}, ${theme.palette.secondary.main})`,
+  borderRadius: 12,
+  padding: "12px 32px",
+  fontSize: "1.1rem",
+  fontWeight: 600,
+  textTransform: "none",
+  position: "relative",
+  overflow: "hidden",
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: "-100%",
+    width: "100%",
+    height: "100%",
+    background:
+      "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+    transition: "left 0.6s",
+  },
+  "&:hover::before": {
+    left: "100%",
+  },
+  "&:hover": {
+    transform: "translateY(-2px)",
+    boxShadow: `0 8px 25px ${theme.palette.primary.main}40`,
+  },
+}));
+
+const PulsingIcon = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: 60,
+  height: 60,
+  borderRadius: "50%",
+  background: `linear-gradient(45deg, ${theme.palette.primary.gradientStart}20, ${theme.palette.secondary.main}20)`,
+  margin: "0 auto 16px",
+  animation: "pulse 3s ease-in-out infinite",
+  "@keyframes pulse": {
+    "0%, 100%": {
+      transform: "scale(1)",
+      boxShadow: `0 0 0 0 ${theme.palette.secondary.main}40`,
+    },
+    "50%": {
+      transform: "scale(1.05)",
+      boxShadow: `0 0 0 20px ${theme.palette.secondary.main}00`,
+    },
+  },
+}));
+
+const BackgroundPattern = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  zIndex: 0,
+  opacity: 0.02,
+  backgroundImage: `
+    linear-gradient(45deg, ${theme.palette.primary.gradientStart} 25%, transparent 25%),
+    linear-gradient(-45deg, ${theme.palette.primary.gradientStart} 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, ${theme.palette.secondary.main} 75%),
+    linear-gradient(-45deg, transparent 75%, ${theme.palette.secondary.main} 75%)
+  `,
+  backgroundSize: "40px 40px",
+  backgroundPosition: "0 0, 0 20px, 20px -20px, -20px 0px",
+  animation: "drift 25s linear infinite",
+  "@keyframes drift": {
+    "0%": { transform: "translate(0, 0)" },
+    "100%": { transform: "translate(-40px, -40px)" },
+  },
+}));
+
 export default function ContactForm() {
   const theme = useTheme();
   const [form, setForm] = useState({
@@ -54,148 +196,6 @@ export default function ContactForm() {
     setIsSubmitting(false);
     setForm({ name: "", surname: "", email: "", subject: "", message: "" });
   };
-
-  const StyledPaper = styled(Paper)(({ theme }) => ({
-    background: `linear-gradient(135deg, ${theme.palette.background.paper}f5, ${theme.palette.background.default}e8)`,
-    backdropFilter: "blur(20px)",
-    border: `1px solid ${theme.palette.divider}30`,
-    borderRadius: 24,
-    position: "relative",
-    overflow: "hidden",
-    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      background: `linear-gradient(135deg, ${theme.palette.primary.gradientStart}05, ${theme.palette.secondary.main}05)`,
-      zIndex: 0,
-    },
-    "&:hover": {
-      transform: "translateY(-2px)",
-      boxShadow: `0 20px 60px ${theme.palette.primary.gradientStart}15`,
-    },
-    [theme.breakpoints.down("sm")]: {
-      padding: theme.spacing(3),
-      minWidth: "auto",
-      width: "100%",
-      boxSizing: "border-box",
-    },
-  }));
-
-  const ContactInfoCard = styled(Paper)(({ theme }) => ({
-    background: `linear-gradient(135deg, ${theme.palette.secondary.main}10, ${theme.palette.primary.gradientStart}08)`,
-    backdropFilter: "blur(10px)",
-    border: `1px solid ${theme.palette.divider}40`,
-    borderRadius: 16,
-    padding: theme.spacing(3),
-    textAlign: "center",
-    transition: "all 0.3s ease",
-    "&:hover": {
-      transform: "translateY(-4px)",
-      boxShadow: `0 12px 30px ${theme.palette.secondary.main}20`,
-    },
-  }));
-
-  const AnimatedButton = styled(Button)(({ theme }) => ({
-    background: `linear-gradient(45deg, ${theme.palette.primary.gradientStart}, ${theme.palette.secondary.main})`,
-    borderRadius: 12,
-    padding: "12px 32px",
-    fontSize: "1.1rem",
-    fontWeight: 600,
-    textTransform: "none",
-    position: "relative",
-    overflow: "hidden",
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      top: 0,
-      left: "-100%",
-      width: "100%",
-      height: "100%",
-      background:
-        "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
-      transition: "left 0.6s",
-    },
-    "&:hover::before": {
-      left: "100%",
-    },
-    "&:hover": {
-      transform: "translateY(-2px)",
-      boxShadow: `0 8px 25px ${theme.palette.primary.main}40`,
-    },
-  }));
-
-  const StyledTextField = styled(TextField)(({ theme }) => ({
-    "& .MuiOutlinedInput-root": {
-      borderRadius: 12,
-      transition: "all 0.3s ease",
-      background: `${theme.palette.background.paper}80`,
-      "&:hover": {
-        transform: "translateY(-2px)",
-        boxShadow: `0 4px 12px ${theme.palette.primary.gradientStart}15`,
-      },
-      "&.Mui-focused": {
-        transform: "translateY(-2px)",
-        boxShadow: `0 8px 20px ${theme.palette.secondary.main}25`,
-        "& fieldset": {
-          borderColor: theme.palette.secondary.main,
-          borderWidth: 2,
-        },
-      },
-    },
-    "& label.Mui-focused": {
-      color: theme.palette.secondary.main,
-      fontWeight: 600,
-    },
-  }));
-
-  const PulsingIcon = styled(Box)(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 60,
-    height: 60,
-    borderRadius: "50%",
-    background: `linear-gradient(45deg, ${theme.palette.primary.gradientStart}20, ${theme.palette.secondary.main}20)`,
-    margin: "0 auto 16px",
-    animation: "pulse 3s ease-in-out infinite",
-    "@keyframes pulse": {
-      "0%, 100%": {
-        transform: "scale(1)",
-        boxShadow: `0 0 0 0 ${theme.palette.secondary.main}40`,
-      },
-      "50%": {
-        transform: "scale(1.05)",
-        boxShadow: `0 0 0 20px ${theme.palette.secondary.main}00`,
-      },
-    },
-  }));
-
-  const BackgroundPattern = styled(Box)(() => ({
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 0,
-    opacity: 0.02,
-    backgroundImage: `
-      linear-gradient(45deg, ${theme.palette.primary.gradientStart} 25%, transparent 25%),
-      linear-gradient(-45deg, ${theme.palette.primary.gradientStart} 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, ${theme.palette.secondary.main} 75%),
-      linear-gradient(-45deg, transparent 75%, ${theme.palette.secondary.main} 75%)
-    `,
-    backgroundSize: "40px 40px",
-    backgroundPosition: "0 0, 0 20px, 20px -20px, -20px 0px",
-    animation: "drift 25s linear infinite",
-    "@keyframes drift": {
-      "0%": { transform: "translate(0, 0)" },
-      "100%": { transform: "translate(-40px, -40px)" },
-    },
-  }));
 
   return (
     <Box
@@ -349,8 +349,6 @@ export default function ContactForm() {
               flex: "2 1 500px",
               minWidth: 500,
               boxSizing: "border-box",
-
-              // Responsive adjustments for mobile:
               "@media (max-width:600px)": {
                 flex: "1 1 100%",
                 minWidth: "100%",
@@ -385,8 +383,6 @@ export default function ContactForm() {
                       sx={{
                         display: "flex",
                         gap: 2,
-
-                        // Mobile: stack vertically
                         "@media (max-width:600px)": {
                           flexDirection: "column",
                         },
