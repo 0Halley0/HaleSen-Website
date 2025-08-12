@@ -238,11 +238,20 @@ export default function ContactForm() {
         <Box sx={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           <Box sx={{ flex: "1 1 300px", minWidth: 300 }}>
             <Fade in timeout={800}>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 3,
+                }}
+              >
                 <ContactInfoCard>
-                  <PulsingIcon>
+                  <PulsingIcon sx={{ justifyContent: "center" }}>
                     <EmailIcon
-                      sx={{ fontSize: 30, color: theme.palette.secondary.main }}
+                      sx={{
+                        fontSize: 30,
+                        color: theme.palette.secondary.main,
+                      }}
                     />
                   </PulsingIcon>
                   <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>

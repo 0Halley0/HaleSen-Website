@@ -15,10 +15,11 @@ import {
   List,
   ListItem,
   ListItemText,
-  Divider,
   styled,
   Card,
   CardContent,
+  type Theme,
+  type BoxProps,
 } from "@mui/material";
 import Seperator from "../../assets/seperator.png";
 import Square1 from "../../assets/square1.png";
@@ -27,78 +28,116 @@ import Square3 from "../../assets/square3.png";
 import Square4 from "../../assets/square4.png";
 import { GradientDivider } from "../shared/GradientDivider";
 
-export default function WorkTimeline() {
-  const theme = useTheme();
+type ColorVariant = "primary" | "secondary" | "success";
 
-  const StyledTimelineCard = styled(Card)(({ theme }) => ({
-    background: `linear-gradient(135deg, ${theme.palette.background.paper}ee, ${theme.palette.background.default}aa)`,
-    backdropFilter: "blur(10px)",
-    border: `1px solid ${theme.palette.divider}40`,
-    borderRadius: 16,
-    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+interface FloatingSquareProps extends BoxProps {
+  delay?: number;
+}
+
+const FloatingSquare = styled(({ delay, ...other }: FloatingSquareProps) => (
+  <Box {...other} />
+))(({ delay = 0 }) => ({
+  position: "absolute",
+  width: "40px",
+  height: "40px",
+  opacity: 0.1,
+  animation: `float 6s ease-in-out infinite`,
+  animationDelay: `${delay}s`,
+  zIndex: 1,
+  "@keyframes float": {
+    "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
+    "50%": { transform: "translateY(-20px) rotate(180deg)" },
+  },
+}));
+
+const getPaletteColor = (theme: Theme, variant: ColorVariant) => {
+  switch (variant) {
+    case "primary":
+      return {
+        main: theme.palette.primary.main,
+        light: theme.palette.primary.light,
+      };
+    case "secondary":
+      return {
+        main: theme.palette.secondary.main,
+        light: theme.palette.secondary.light,
+      };
+    case "success":
+      return {
+        main: theme.palette.success.main,
+        light: theme.palette.success.light,
+      };
+  }
+};
+
+interface AnimatedTimelineDotProps
+  extends React.ComponentProps<typeof TimelineDot> {
+  colorVariant?: ColorVariant;
+}
+
+const AnimatedTimelineDot = styled(
+  ({ colorVariant, ...other }: AnimatedTimelineDotProps) => (
+    <TimelineDot {...other} />
+  )
+)(({ theme, colorVariant = "primary" }) => {
+  const color = getPaletteColor(theme, colorVariant);
+
+  return {
     position: "relative",
-    overflow: "hidden",
+    overflow: "visible",
     "&::before": {
       content: '""',
       position: "absolute",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      background: `linear-gradient(135deg, ${theme.palette.primary.main}08, ${theme.palette.secondary.main}08)`,
-      zIndex: 0,
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: 20,
+      height: 20,
+      borderRadius: "50%",
+      background: `linear-gradient(45deg, ${color.main}, ${color.light})`,
+      animation: "pulse 2s ease-in-out infinite",
     },
-    "&:hover": {
-      transform: "translateY(-4px)",
-      boxShadow: `0 12px 40px ${theme.palette.primary.main}20`,
-      border: `1px solid ${theme.palette.primary.main}60`,
+    "@keyframes pulse": {
+      "0%, 100%": {
+        transform: "translate(-50%, -50%) scale(1)",
+        opacity: 1,
+      },
+      "50%": {
+        transform: "translate(-50%, -50%) scale(1.3)",
+        opacity: 0.7,
+      },
     },
-  }));
+  };
+});
 
-  const FloatingSquare = styled(Box)(({ delay = 0 }) => ({
+const StyledTimelineCard = styled(Card)(({ theme }) => ({
+  background: `linear-gradient(135deg, ${theme.palette.background.paper}ee, ${theme.palette.background.default}aa)`,
+  backdropFilter: "blur(10px)",
+  border: `1px solid ${theme.palette.divider}40`,
+  borderRadius: 16,
+  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  position: "relative",
+  overflow: "hidden",
+  "&::before": {
+    content: '""',
     position: "absolute",
-    width: "40px",
-    height: "40px",
-    opacity: 0.1,
-    animation: `float 6s ease-in-out infinite`,
-    animationDelay: `${delay}s`,
-    zIndex: 1,
-    "@keyframes float": {
-      "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
-      "50%": { transform: "translateY(-20px) rotate(180deg)" },
-    },
-  }));
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: `linear-gradient(135deg, ${theme.palette.primary.main}08, ${theme.palette.secondary.main}08)`,
+    zIndex: 0,
+  },
+  "&:hover": {
+    transform: "translateY(-4px)",
+    boxShadow: `0 12px 40px ${theme.palette.primary.main}20`,
+    border: `1px solid ${theme.palette.primary.main}60`,
+  },
+}));
 
-  const AnimatedTimelineDot = styled(TimelineDot)(
-    ({ theme, variant = "primary" }) => ({
-      position: "relative",
-      overflow: "visible",
-      "&::before": {
-        content: '""',
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "20px",
-        height: "20px",
-        borderRadius: "50%",
-        background: `linear-gradient(45deg, ${theme.palette[variant].main}, ${theme.palette[variant].light})`,
-        animation: "pulse 2s ease-in-out infinite",
-      },
-      "@keyframes pulse": {
-        "0%, 100%": {
-          transform: "translate(-50%, -50%) scale(1)",
-          opacity: 1,
-        },
-        "50%": {
-          transform: "translate(-50%, -50%) scale(1.3)",
-          opacity: 0.7,
-        },
-      },
-    })
-  );
-
-  const BackgroundPattern = styled(Box)(() => ({
+const BackgroundPattern = styled(Box)(() => {
+  const theme = useTheme();
+  return {
     position: "absolute",
     top: 0,
     left: 0,
@@ -117,7 +156,11 @@ export default function WorkTimeline() {
       "0%": { transform: "translate(0, 0)" },
       "100%": { transform: "translate(-100px, -100px)" },
     },
-  }));
+  };
+});
+
+export default function WorkTimeline() {
+  const theme = useTheme();
 
   return (
     <Box
@@ -130,12 +173,10 @@ export default function WorkTimeline() {
         alignItems: "center",
         justifyContent: "center",
         position: "relative",
-
         overflow: "hidden",
       }}
     >
       <BackgroundPattern />
-
       <FloatingSquare sx={{ top: "10%", left: "10%" }} delay={0}>
         <img src={Square1} alt="" style={{ width: "100%", height: "100%" }} />
       </FloatingSquare>
@@ -148,7 +189,6 @@ export default function WorkTimeline() {
       <FloatingSquare sx={{ bottom: "15%", right: "12%" }} delay={1}>
         <img src={Square4} alt="" style={{ width: "100%", height: "100%" }} />
       </FloatingSquare>
-
       <GradientDivider />
       <Box sx={{ width: "100%", position: "relative", zIndex: 2 }}>
         <img
@@ -163,7 +203,6 @@ export default function WorkTimeline() {
         />
       </Box>
       <GradientDivider />
-
       <Container sx={{ position: "relative", zIndex: 2 }}>
         <Timeline position="alternate" sx={{ py: 4 }}>
           <TimelineItem>
@@ -179,10 +218,8 @@ export default function WorkTimeline() {
             </TimelineOppositeContent>
             <TimelineSeparator>
               <AnimatedTimelineDot
-                variant="secondary"
-                sx={{
-                  boxShadow: `0 0 0 4px ${theme.palette.primary.light}55`,
-                }}
+                colorVariant="secondary"
+                sx={{ boxShadow: `0 0 0 4px ${theme.palette.primary.light}55` }}
               />
               <TimelineConnector
                 sx={{
@@ -222,7 +259,6 @@ export default function WorkTimeline() {
                               color: theme.palette.secondary.main,
                               textDecoration: "none",
                               fontWeight: "500",
-                              "&:hover": { textDecoration: "underline" },
                             }}
                           >
                             🔗 app.evdeacil.com
@@ -265,10 +301,8 @@ export default function WorkTimeline() {
             </TimelineOppositeContent>
             <TimelineSeparator>
               <AnimatedTimelineDot
-                variant="primary"
-                sx={{
-                  boxShadow: `0 0 0 4px ${theme.palette.primary.light}55`,
-                }}
+                colorVariant="primary"
+                sx={{ boxShadow: `0 0 0 4px ${theme.palette.primary.light}55` }}
               />
               <TimelineConnector
                 sx={{
@@ -359,7 +393,7 @@ export default function WorkTimeline() {
             </TimelineOppositeContent>
             <TimelineSeparator>
               <AnimatedTimelineDot
-                variant="secondary"
+                colorVariant="secondary"
                 sx={{
                   boxShadow: `0 0 0 4px ${theme.palette.secondary.light}55`,
                 }}
@@ -420,10 +454,8 @@ export default function WorkTimeline() {
             </TimelineOppositeContent>
             <TimelineSeparator>
               <AnimatedTimelineDot
-                variant="success"
-                sx={{
-                  boxShadow: `0 0 0 4px ${theme.palette.success.light}55`,
-                }}
+                colorVariant="success"
+                sx={{ boxShadow: `0 0 0 4px ${theme.palette.success.light}55` }}
               />
             </TimelineSeparator>
             <TimelineContent>
