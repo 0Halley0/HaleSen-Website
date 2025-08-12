@@ -1,4 +1,15 @@
 import { createTheme } from "@mui/material/styles";
+
+declare module "@mui/material/styles" {
+  interface PaletteColor {
+    title?: string;
+    gradientStart?: string;
+  }
+  interface SimplePaletteColorOptions {
+    title?: string;
+    gradientStart?: string;
+  }
+}
 export const getDesignTokens = (mode: "light" | "dark") => ({
   palette: {
     mode,

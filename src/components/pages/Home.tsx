@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Banner from "../../assets/top_banner.png";
+import { GradientDivider } from "../shared/GradientDivider";
 import {
-  Divider,
   styled,
   Typography,
   Fade,
@@ -21,27 +21,6 @@ import {
 export default function Home() {
   const theme = useTheme();
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
-
-  const GradientDivider = styled(Divider)(() => ({
-    width: "100%",
-    height: 3,
-    borderRadius: 2,
-    margin: "1.5rem auto",
-    background: `linear-gradient(to right, ${theme.palette.primary.title}, ${theme.palette.secondary.main})`,
-    border: "none",
-    position: "relative",
-    overflow: "hidden",
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      top: 0,
-      left: "-100%",
-      width: "100%",
-      height: "100%",
-      background:
-        "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
-    },
-  }));
 
   const StyledTitle = styled(Typography)(() => ({
     fontFamily: '"Playfair Display", "Georgia", serif',

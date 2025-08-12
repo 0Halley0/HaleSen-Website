@@ -25,35 +25,10 @@ import Square1 from "../../assets/square1.png";
 import Square2 from "../../assets/square2.png";
 import Square3 from "../../assets/square3.png";
 import Square4 from "../../assets/square4.png";
+import { GradientDivider } from "../shared/GradientDivider";
 
 export default function WorkTimeline() {
   const theme = useTheme();
-
-  const GradientDivider = styled(Divider)(() => ({
-    width: "100%",
-    height: 3,
-    borderRadius: 2,
-    margin: "1.5rem auto",
-    background: `linear-gradient(to right, ${theme.palette.primary.title}, ${theme.palette.secondary.main})`,
-    border: "none",
-    position: "relative",
-    overflow: "hidden",
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      top: 0,
-      left: "-100%",
-      width: "100%",
-      height: "100%",
-      background:
-        "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
-      animation: "shimmer 3s infinite",
-    },
-    "@keyframes shimmer": {
-      "0%": { left: "-100%" },
-      "100%": { left: "100%" },
-    },
-  }));
 
   const StyledTimelineCard = styled(Card)(({ theme }) => ({
     background: `linear-gradient(135deg, ${theme.palette.background.paper}ee, ${theme.palette.background.default}aa)`,

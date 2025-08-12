@@ -20,7 +20,7 @@ function App() {
       <CssBaseline />
       <TopNavBar toggleColorMode={toggleColorMode} mode={mode} />
       <div style={{ paddingTop: 64, maxWidth: 900, margin: "auto" }}>
-        <Stack spacing={80}>
+        <Stack spacing={50}>
           <Home />
           <Timeline />
           <ContactForm />
