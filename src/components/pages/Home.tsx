@@ -55,7 +55,7 @@ export default function Home() {
     marginTop: "1.5rem",
   }));
 
-  const StyledDescription = styled(Typography)(() => ({
+  const StyledDescription = styled(Typography)(({ theme }) => ({
     fontFamily: '"Source Sans Pro", "Arial", sans-serif',
     fontWeight: 400,
     color: theme.palette.text.secondary,
@@ -85,6 +85,15 @@ export default function Home() {
     top: 150,
     left: 30,
     right: 0,
+
+    [theme.breakpoints.down("sm")]: {
+      position: "static",
+      top: "auto",
+      left: "auto",
+      right: "auto",
+      marginTop: theme.spacing(2),
+      textAlign: "left",
+    },
   }));
 
   const TechChip = styled(Chip)(() => ({
@@ -111,6 +120,9 @@ export default function Home() {
       background: `linear-gradient(135deg, ${theme.palette.primary.main}30, ${theme.palette.secondary.main}30)`,
       transform: "translateY(-3px) scale(1.1)",
       boxShadow: `0 6px 20px ${theme.palette.primary.main}40`,
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "0rem",
     },
   }));
 
@@ -249,9 +261,13 @@ export default function Home() {
         >
           Specializing in Web & Mobile Development 🚀
         </StyledSubtitle>
+
         <Box
           sx={{
             mb: 3,
+            display: "flex",
+            gap: 2,
+            justifyContent: { xs: "center", md: "flex-start" },
           }}
         >
           <a href="https://github.com/0Halley0" target="_blank" rel="GitHub">
@@ -300,6 +316,7 @@ export default function Home() {
             ))}
           </Box>
         </Box>
+
         {descriptions.map((desc, i) => (
           <Fade
             key={i}

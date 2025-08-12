@@ -77,6 +77,12 @@ export default function ContactForm() {
       transform: "translateY(-2px)",
       boxShadow: `0 20px 60px ${theme.palette.primary.gradientStart}15`,
     },
+    [theme.breakpoints.down("sm")]: {
+      padding: theme.spacing(3),
+      minWidth: "auto",
+      width: "100%",
+      boxSizing: "border-box",
+    },
   }));
 
   const ContactInfoCard = styled(Paper)(({ theme }) => ({
@@ -235,8 +241,20 @@ export default function ContactForm() {
       <FloatingSquare index={2} delay={4.5} sx={{ top: "60%", right: "3%" }} />
 
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
-        <Box sx={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-          <Box sx={{ flex: "1 1 300px", minWidth: 300 }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 4,
+            flexWrap: "wrap",
+          }}
+        >
+          <Box
+            sx={{
+              flex: "1 1 300px",
+              minWidth: 300,
+              boxSizing: "border-box",
+            }}
+          >
             <Fade in timeout={800}>
               <Box
                 sx={{
@@ -326,7 +344,20 @@ export default function ContactForm() {
             </Fade>
           </Box>
 
-          <Box sx={{ flex: "2 1 500px", minWidth: 500 }}>
+          <Box
+            sx={{
+              flex: "2 1 500px",
+              minWidth: 500,
+              boxSizing: "border-box",
+
+              // Responsive adjustments for mobile:
+              "@media (max-width:600px)": {
+                flex: "1 1 100%",
+                minWidth: "100%",
+                width: "100%",
+              },
+            }}
+          >
             <Zoom in timeout={1000}>
               <StyledPaper elevation={0} sx={{ p: 4 }}>
                 <Box sx={{ position: "relative", zIndex: 1 }}>
@@ -350,7 +381,17 @@ export default function ContactForm() {
                     onSubmit={handleSubmit}
                     sx={{ display: "flex", gap: 3, flexDirection: "column" }}
                   >
-                    <Box sx={{ display: "flex", gap: 2 }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: 2,
+
+                        // Mobile: stack vertically
+                        "@media (max-width:600px)": {
+                          flexDirection: "column",
+                        },
+                      }}
+                    >
                       <StyledTextField
                         fullWidth
                         label="Name"
@@ -358,16 +399,14 @@ export default function ContactForm() {
                         value={form.name}
                         onChange={handleChange}
                         required
-                        slotProps={{
-                          input: {
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <PersonIcon
-                                  sx={{ color: theme.palette.secondary.main }}
-                                />
-                              </InputAdornment>
-                            ),
-                          },
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon
+                                sx={{ color: theme.palette.secondary.main }}
+                              />
+                            </InputAdornment>
+                          ),
                         }}
                       />
                       <StyledTextField
@@ -377,16 +416,14 @@ export default function ContactForm() {
                         value={form.surname}
                         onChange={handleChange}
                         required
-                        slotProps={{
-                          input: {
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <PersonIcon
-                                  sx={{ color: theme.palette.secondary.main }}
-                                />
-                              </InputAdornment>
-                            ),
-                          },
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon
+                                sx={{ color: theme.palette.secondary.main }}
+                              />
+                            </InputAdornment>
+                          ),
                         }}
                       />
                     </Box>
@@ -399,16 +436,14 @@ export default function ContactForm() {
                       value={form.email}
                       onChange={handleChange}
                       required
-                      slotProps={{
-                        input: {
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <EmailIcon
-                                sx={{ color: theme.palette.secondary.main }}
-                              />
-                            </InputAdornment>
-                          ),
-                        },
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <EmailIcon
+                              sx={{ color: theme.palette.secondary.main }}
+                            />
+                          </InputAdornment>
+                        ),
                       }}
                     />
 
@@ -419,16 +454,14 @@ export default function ContactForm() {
                       value={form.subject}
                       onChange={handleChange}
                       required
-                      slotProps={{
-                        input: {
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <SubjectIcon
-                                sx={{ color: theme.palette.secondary.main }}
-                              />
-                            </InputAdornment>
-                          ),
-                        },
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SubjectIcon
+                              sx={{ color: theme.palette.secondary.main }}
+                            />
+                          </InputAdornment>
+                        ),
                       }}
                     />
 
@@ -441,16 +474,14 @@ export default function ContactForm() {
                       value={form.message}
                       onChange={handleChange}
                       required
-                      slotProps={{
-                        input: {
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <MessageIcon
-                                sx={{ color: theme.palette.secondary.main }}
-                              />
-                            </InputAdornment>
-                          ),
-                        },
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <MessageIcon
+                              sx={{ color: theme.palette.secondary.main }}
+                            />
+                          </InputAdornment>
+                        ),
                       }}
                     />
 
