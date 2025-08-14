@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
-import { ThemeProvider, CssBaseline, Stack } from "@mui/material";
-import { getTheme } from "./theme"; // adjust path if needed
+import { ThemeProvider, CssBaseline, Stack, Box } from "@mui/material";
+import { getTheme } from "./theme";
 import TopNavBar from "./components/navigations/TopNavBar";
 import Home from "./components/pages/Home";
 import Timeline from "./components/pages/Timeline";
@@ -19,13 +19,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <TopNavBar toggleColorMode={toggleColorMode} mode={mode} />
-      <div style={{ paddingTop: 64, maxWidth: 900, margin: "auto" }}>
-        <Stack spacing={50}>
+
+      <Box
+        sx={{
+          pt: { xs: 2, sm: 4, md: 8 },
+          maxWidth: 900,
+          mx: "auto",
+        }}
+      >
+        <Stack spacing={{ xs: 8, sm: 16, md: 50 }}>
           <Home />
           <Timeline />
           <ContactForm />
         </Stack>
-      </div>
+      </Box>
     </ThemeProvider>
   );
 }
