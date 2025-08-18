@@ -25,6 +25,7 @@ export default function TopNavBar({ toggleColorMode, mode }: TopNavBarProps) {
 
   const menuItems = [
     { label: "Home", to: "home" },
+    { label: "Demo", to: "demo" },
     { label: "Timeline", to: "timeline" },
     { label: "Contact", to: "contact" },
   ];
@@ -60,8 +61,6 @@ export default function TopNavBar({ toggleColorMode, mode }: TopNavBarProps) {
           <Typography variant="h5" sx={{ flexGrow: 1 }}>
             Hale Berin Şen
           </Typography>
-
-          {/* Masaüstü menü */}
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {menuItems.map((item) => (
               <Button
@@ -87,7 +86,6 @@ export default function TopNavBar({ toggleColorMode, mode }: TopNavBarProps) {
             {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
 
-          {/* Mobil menü butonu */}
           <IconButton
             sx={{ display: { xs: "block", sm: "none" } }}
             color="inherit"
