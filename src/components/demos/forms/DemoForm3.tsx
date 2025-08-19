@@ -1,27 +1,33 @@
-import {
-  Paper,
-  Typography,
-  TextField,
-  Button,
-  FormControlLabel,
-  Checkbox,
-} from "@mui/material";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { type SelectChangeEvent } from "@mui/material/Select";
 
-export default function DemoForm3() {
+export default function Demo3() {
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
+  };
+
   return (
-    <Paper sx={{ p: 4, borderRadius: 2, minWidth: 280 }}>
-      <Typography variant="h6" sx={{ mb: 2 }}>
-        Subscribe
-      </Typography>
-      <TextField fullWidth label="Email" type="email" sx={{ mb: 2 }} />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="I agree to receive updates"
-        sx={{ mb: 2 }}
-      />
-      <Button variant="contained" fullWidth>
-        Subscribe
-      </Button>
-    </Paper>
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
   );
 }

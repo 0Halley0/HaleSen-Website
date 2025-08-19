@@ -28,7 +28,7 @@ const validationSchema = Yup.object({
   terms: Yup.boolean().oneOf([true], "You must accept the terms"),
 });
 
-export default function ValidatedForm() {
+export default function DemoForm1() {
   const initialValues = {
     name: "",
     email: "",
