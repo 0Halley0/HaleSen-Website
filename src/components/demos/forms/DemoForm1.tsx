@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import UserTerms from "../../shared/UserTerms";
+import { useState } from "react";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -29,6 +31,7 @@ const validationSchema = Yup.object({
 });
 
 export default function DemoForm1() {
+  const [openTerms, setOpenTerms] = useState(false);
   const initialValues = {
     name: "",
     email: "",
@@ -139,7 +142,22 @@ export default function DemoForm1() {
                         onBlur={handleBlur}
                       />
                     }
-                    label="User Terms and Privacy Policy"
+                    label={
+                      <Typography variant="body2">
+                        I agree to the{" "}
+                        <Typography
+                          component="span"
+                          color="secondary"
+                          sx={{
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                          }}
+                          onClick={() => setOpenTerms(true)}
+                        >
+                          User Terms and Privacy Policy
+                        </Typography>
+                      </Typography>
+                    }
                   />
                   {touched.terms && errors.terms && (
                     <Typography variant="caption" color="error">
@@ -147,6 +165,11 @@ export default function DemoForm1() {
                     </Typography>
                   )}
                 </Grid>
+                <UserTerms
+                  open={openTerms}
+                  onClose={() => setOpenTerms(false)}
+                />
+
                 <Grid size={{ xs: 12 }}>
                   <Button
                     color="secondary"

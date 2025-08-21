@@ -14,6 +14,8 @@ import * as Yup from "yup";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
+import UserTerms from "../../shared/UserTerms";
+import { useState } from "react";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First Name is required"),
@@ -56,6 +58,7 @@ const validationSchema = Yup.object({
 });
 
 export default function DemoForm2() {
+  const [openTerms, setOpenTerms] = useState(false);
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -275,6 +278,7 @@ export default function DemoForm2() {
                         <TextField
                           fullWidth
                           multiline
+                          minRows={3}
                           label="Open Address"
                           color="secondary"
                           name="address"
@@ -430,7 +434,22 @@ export default function DemoForm2() {
                         onBlur={handleBlur}
                       />
                     }
-                    label="User Terms and Privacy Policy"
+                    label={
+                      <Typography variant="body2">
+                        I agree to the{" "}
+                        <Typography
+                          component="span"
+                          color="secondary"
+                          sx={{
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                          }}
+                          onClick={() => setOpenTerms(true)}
+                        >
+                          User Terms and Privacy Policy
+                        </Typography>
+                      </Typography>
+                    }
                   />
                   {touched.terms && errors.terms && (
                     <Typography variant="caption" color="error">
@@ -438,6 +457,11 @@ export default function DemoForm2() {
                     </Typography>
                   )}
                 </Grid>
+                <UserTerms
+                  open={openTerms}
+                  onClose={() => setOpenTerms(false)}
+                />
+
                 <Grid
                   sx={{ display: "flex", justifyContent: "flex-end" }}
                   size={{ xs: 12 }}
