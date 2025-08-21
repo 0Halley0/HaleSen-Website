@@ -77,6 +77,28 @@ export default function DemoForm2() {
     { value: "male", label: "Male" },
     { value: "female", label: "Female" },
   ];
+  const countries = [
+    { value: "us", label: "United States" },
+    { value: "turkiye", label: "Türkiye" },
+    { value: "china", label: "China" },
+  ];
+  const cityOptions: Record<string, { value: string; label: string }[]> = {
+    us: [
+      { value: "nyc", label: "New York" },
+      { value: "la", label: "Los Angeles" },
+      { value: "chi", label: "Chicago" },
+    ],
+    turkiye: [
+      { value: "ist", label: "İstanbul" },
+      { value: "ank", label: "Ankara" },
+      { value: "izm", label: "İzmir" },
+    ],
+    china: [
+      { value: "bj", label: "Beijing" },
+      { value: "sh", label: "Shanghai" },
+      { value: "gz", label: "Guangzhou" },
+    ],
+  };
   return (
     <Box>
       <Paper sx={{ p: 3, borderRadius: 3, boxShadow: 2, maxWidth: "840px" }}>
@@ -194,6 +216,7 @@ export default function DemoForm2() {
                       </Grid>
                       <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <TextField
+                          select
                           fullWidth
                           label="Country"
                           color="secondary"
@@ -203,10 +226,18 @@ export default function DemoForm2() {
                           onBlur={handleBlur}
                           error={touched.country && Boolean(errors.country)}
                           helperText={touched.country && errors.country}
-                        />
+                        >
+                          {" "}
+                          {countries.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
                       </Grid>
                       <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <TextField
+                          select
                           fullWidth
                           label="City"
                           color="secondary"
@@ -216,7 +247,14 @@ export default function DemoForm2() {
                           onBlur={handleBlur}
                           error={touched.city && Boolean(errors.city)}
                           helperText={touched.city && errors.city}
-                        />
+                          disabled={!values.country}
+                        >
+                          {(cityOptions[values.country] || []).map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
                       </Grid>
                       <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <TextField

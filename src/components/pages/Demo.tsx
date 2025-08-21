@@ -57,6 +57,7 @@ export default function Demo() {
           centeredSlides={true}
           loop={true}
           slidesPerView="auto"
+          allowTouchMove={false}
           spaceBetween={0}
           coverflowEffect={{
             rotate: 0,
