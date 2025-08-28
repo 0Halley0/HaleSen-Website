@@ -1,4 +1,6 @@
 import "@mui/material/styles";
+declare module "*.css";
+declare module "*.scss";
 
 declare module "@mui/material/styles" {
   interface PaletteColor {

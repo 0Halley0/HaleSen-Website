@@ -5,6 +5,7 @@ import TopNavBar from "./components/navigations/TopNavBar";
 import Home from "./components/pages/Home";
 import Timeline from "./components/pages/Timeline";
 import ContactForm from "./components/pages/ContactForm";
+import Demo from "./components/pages/Demo";
 
 function App() {
   const [mode, setMode] = useState<"light" | "dark">("dark");
@@ -29,6 +30,7 @@ function App() {
       >
         <Stack spacing={{ xs: 8, sm: 16, md: 50 }}>
           <Home />
+          <Demo />
           <Timeline />
           <ContactForm />
         </Stack>
