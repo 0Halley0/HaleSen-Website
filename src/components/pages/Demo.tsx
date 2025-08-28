@@ -8,6 +8,7 @@ import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 import DemoForm1 from "../demos/forms/DemoForm1";
 import DemoForm2 from "../demos/forms/DemoForm2";
 import DemoForm3 from "../demos/forms/DemoForm3";
+import DemoForm4 from "../demos/forms/DemoForm4";
 
 export default function Demo() {
   return (
@@ -79,6 +80,9 @@ export default function Demo() {
           </SwiperSlide>
           <SwiperSlide style={{ display: "flex", justifyContent: "center" }}>
             <DemoForm3 />
+          </SwiperSlide>
+          <SwiperSlide style={{ display: "flex", justifyContent: "center" }}>
+            <DemoForm4 />
           </SwiperSlide>
         </Swiper>
       </Container>

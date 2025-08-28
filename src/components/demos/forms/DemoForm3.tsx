@@ -30,7 +30,7 @@ const validationSchema = Yup.object({
   entryDate: Yup.mixed<Dayjs>().nullable().required("Entry Date is required"),
 });
 
-export default function DemoInventoryForm() {
+export default function DemoForm3() {
   const initialValues = {
     productCode: "",
     productName: "",
